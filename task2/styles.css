@@ -1,3 +1,7 @@
+html {
+  font-family: sans-serif;
+}
+
 .container {
   width: 80%;
   margin: 0 auto;
@@ -32,6 +36,16 @@
   object-fit: cover;
 }
 
+.date {
+  text-align: center;
+  margin: 2rem 0 4rem 0;
+  font-size: 1.6rem;
+}
+
+.hidden {
+  display: none;
+}
+
 @media screen and (min-width: 500px) and (max-width: 900px) {
   .container {
     grid-template-columns: repeat(2, 1fr);
@@ -41,5 +55,10 @@
 @media screen and (max-width: 500px) {
   .container {
     grid-template-columns: 1fr;
+  }
+
+  .date {
+    margin: 1.6rem 0;
+    font-size: 1.2rem;
   }
 }
