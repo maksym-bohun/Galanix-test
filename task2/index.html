@@ -1,10 +1,89 @@
+<!-- Задание #2
+
+HTML+CSS:
+1) Расположите на одной странице изображения из папки task-2 в виде сетки 4 на 3 с равномерными отступами между ними. Область контента с картинками центрирована и занимает 80% ширины экрана.
+2) Добавьте к изображениям тёмно-серую обводку толщиной 5 пикселей.
+3) Обводка первого изображения в каждом ряду - красного цвета.
+4) "Подрезаем" изображения так, чтобы они стали круглыми.
+5) При наведении на любую картинку обводка должна становится жёлтой, а изображение поворачиваться на угол 45 градусов.
+6) При ширинах экрана 900 пикселей и меньше предложите свою версию адаптивной вёрстки страницы с перестраиванием изображений по 2 в ряд, а при ширинах 500 пикселей и меньше - по 1 в ряд.
+
+JS:
+7) Напишите скрипт, который будет подсчитывать количество картинок на странице и выводить вверху страницы их количество и актуальную дату в формате ДД.ММ.ГГГГ ЧЧ:ММ.
+8*) При клике на каждое изображение в сетке:
+ - во всплывающем окне поверх всего контента появляется центрированное по-вертикали и горизонтали изображение в полном размере.
+- также поверх контента, однако под большим изображением должен быть полупрозрачный затемняющий фон.
+- рядом с большим изображением должна быть кнопка, при клике на которую большая картинка скрывается.
+* в этом задании не рекомендуется использовать плагины всплывающих фотогалерей, явным образом решающие эту задачу.
+
+BONUS:
+9) Под каждым изображением в сетке размещаем маленький крестик.
+ - при клике на него соответствующее изображение удаляется из общего списка.
+ - когда пользователь удаляет картинки, сохраняем данные о том, что было удалено, и после перезагрузки страницы удалённые ранее картинки должны отстуствовать на странице. Способ хранения данных - на ваше усмотрение.
+ - внизу под всеми изображениями размещаем кнопку "Восстановить", которая делает все ранее скрытые пользователем картинки видимыми.
+
+ -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="./styles.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <section>
+      <div class="container">
+        <div class="image-container">
+          <img src="./task-2/1.jpg" alt="image 1" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/2.jpg" alt="image 2" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/3.jpg" alt="image 3" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/4.jpg" alt="image 4" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/5.jpg" alt="image 5" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/6.jpg" alt="image 6" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/7.jpg" alt="image 7" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/8.jpg" alt="image 8" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/9.jpg" alt="image 9" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/10.jpg" alt="image 10" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/11.jpg" alt="image 11" class="image" />
+        </div>
+
+        <div class="image-container">
+          <img src="./task-2/12.jpg" alt="image 12" class="image" />
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

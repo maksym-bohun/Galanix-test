@@ -1,0 +1,45 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  border: 5px solid #495057;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.image-container:nth-child(4n + 1) {
+  border: 5px solid red;
+}
+
+.image-container:hover {
+  border: 5px solid yellow;
+  transform: rotate(45deg);
+}
+
+.image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 500px) and (max-width: 900px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
