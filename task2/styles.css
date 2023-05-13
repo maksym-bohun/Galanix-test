@@ -7,20 +7,28 @@ html {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  border-radius: 50%;
+}
+
+.image-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 1rem;
 }
 
 .image-container {
   position: relative;
-  width: 100%;
-  padding-bottom: 100%;
+  width: 90%;
+  padding-bottom: 90%;
   border: 5px solid #495057;
   border-radius: 50%;
   overflow: hidden;
   transition: all 0.3s;
 }
 
-.image-container:nth-child(4n + 1) {
+.image-wrapper:nth-child(4n + 1) > .image-container {
   border: 5px solid red;
 }
 
@@ -42,7 +50,7 @@ html {
   font-size: 1.6rem;
 }
 
-.modal-background,
+.modal__background,
 .modal {
   position: fixed;
   top: 0;
@@ -51,7 +59,7 @@ html {
   height: 100%;
 }
 
-.modal-background {
+.modal__background {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -70,8 +78,27 @@ html {
   z-index: 3;
 }
 
+.modal button {
+  background-color: #fff;
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 5px;
+  outline: none;
+}
+
 .hidden {
   display: none;
+}
+
+.remove-img {
+  height: 24px;
+  width: 24px;
+  z-index: 10;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 500px) and (max-width: 900px) {
