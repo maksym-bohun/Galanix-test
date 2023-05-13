@@ -25,7 +25,8 @@
         padding: 5rem 0;
       }
 
-      .ukraine {
+      .ukraine,
+      .japan {
         width: 35rem;
         height: 20rem;
         box-shadow: 0 0 1rem 10px rgba(0, 0, 0, 0.3);
@@ -45,6 +46,22 @@
       .ukraine div:nth-child(2) {
         background-color: #ffd500;
       }
+
+      .japan {
+        position: relative;
+        background-color: #fff;
+      }
+
+      .japan__circle {
+        background-color: #bd0029;
+        width: 12rem;
+        height: 12rem;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
     </style>
   </head>
   <body>
@@ -52,6 +69,11 @@
       <div class="ukraine">
         <div></div>
         <div></div>
+      </div>
+
+      <div class="japan">
+        <div class="japan__flag"></div>
+        <div class="japan__circle"></div>
       </div>
     </section>
   </body>
