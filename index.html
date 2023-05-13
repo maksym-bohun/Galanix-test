@@ -26,7 +26,9 @@
       }
 
       .ukraine,
-      .japan {
+      .japan,
+      .iceland,
+      .czech {
         width: 35rem;
         height: 20rem;
         box-shadow: 0 0 1rem 10px rgba(0, 0, 0, 0.3);
@@ -100,6 +102,30 @@
         left: 0;
         z-index: 20;
       }
+
+      .czech {
+        position: relative;
+      }
+
+      .czech__half {
+        background-color: #fff;
+        width: 100%;
+        height: 50%;
+      }
+
+      .czech__half:nth-child(2) {
+        background-color: #d80c13;
+      }
+
+      .czech__triangle {
+        background-color: #08437f;
+        height: 100%;
+        width: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        clip-path: polygon(0 0, 0% 100%, 100% 50%);
+      }
     </style>
   </head>
   <body>
@@ -116,6 +142,12 @@
 
       <div class="iceland">
         <div class="iceland__horizontal--red"></div>
+      </div>
+
+      <div class="czech">
+        <div class="czech__half"></div>
+        <div class="czech__half"></div>
+        <div class="czech__triangle"></div>
       </div>
     </section>
   </body>
