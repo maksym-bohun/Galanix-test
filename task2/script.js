@@ -40,3 +40,20 @@ setInterval(() => {
 }, 1000);
 
 // 8
+
+let modalImage;
+
+images.forEach((img) =>
+  img.addEventListener("click", (e) => {
+    console.log(e.target.src.slice(21));
+    modal.classList.remove("hidden");
+    modalImage = document.createElement("img");
+    modalImage.src = e.target.src.slice(21);
+    modal.appendChild(modalImage);
+  })
+);
+
+modalBackground.addEventListener("click", () => {
+  modal.removeChild(modalImage);
+  modal.classList.add("hidden");
+});
