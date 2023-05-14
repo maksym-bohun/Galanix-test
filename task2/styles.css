@@ -97,8 +97,51 @@ html {
 .remove-img {
   height: 24px;
   width: 24px;
-  z-index: 10;
   cursor: pointer;
+  z-index: 1;
+  margin: 1rem;
+}
+
+.deleted-container::before {
+  content: "Deleted images";
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.deleted-container {
+  min-height: 10rem;
+  width: 80%;
+  margin: 5rem auto 2rem;
+  padding: 1rem 2rem;
+  border: 1px solid #000;
+  border-radius: 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 2rem;
+  position: relative;
+}
+
+.deleted-container div {
+  height: 8rem;
+  max-width: 10rem;
+}
+
+.deleted-container div .remove-img {
+  display: none;
+}
+
+.deleted-container .image-container {
+  border: none !important;
+  transform: none !important;
+}
+
+.restore-btn {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 2rem;
 }
 
 @media screen and (min-width: 500px) and (max-width: 900px) {

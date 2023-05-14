@@ -13,11 +13,102 @@ const modal = document.querySelector(".modal");
 const modalBackground = document.querySelector(".modal__background");
 const closeModalBtn = document.querySelector(".modal__close-btn");
 let imageWrappers = document.querySelectorAll(".image-wrapper");
+const deletedContainer = document.querySelector(".deleted-container");
+const initialContainerHTML = ` 
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/1.jpg" alt="image 1" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
 
-console.log(container.childElementCount);
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/2.jpg" alt="image 2" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/3.jpg" alt="image 3" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/4.jpg" alt="image 4" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/5.jpg" alt="image 5" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/6.jpg" alt="image 6" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/7.jpg" alt="image 7" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/8.jpg" alt="image 8" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/9.jpg" alt="image 9" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/10.jpg" alt="image 10" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/11.jpg" alt="image 11" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+
+        <div class="image-wrapper">
+          <div class="image-container">
+            <img src="./task-2/12.jpg" alt="image 12" class="image" />
+          </div>
+          <img src='task-2/close.png' class='remove-img'/>
+        </div>
+     `;
+
 document.addEventListener("DOMContentLoaded", () => {
   const containerInnerHtml = localStorage.getItem("container");
-  if (containerInnerHtml) container.innerHTML = JSON.parse(containerInnerHtml);
+  if (containerInnerHtml && containerInnerHtml !== "")
+    container.innerHTML = JSON.parse(containerInnerHtml);
+  if (localStorage.getItem("deletedContainerHTML"))
+    deletedContainer.innerHTML = JSON.parse(
+      localStorage.getItem("deletedContainerHTML")
+    );
+  addRemovingButtons();
 });
 
 function updateImagesAmount() {
@@ -31,7 +122,6 @@ const dateHandler = () => {
   const year = date.getFullYear();
   let hour = date.getHours();
   let min = date.getMinutes();
-  //   console.log(date);
 
   if (+day < 10) day = "0" + day;
   if (+month < 10) month = "0" + month;
@@ -39,6 +129,16 @@ const dateHandler = () => {
   if (+min < 10) min = "0" + min;
 
   return `${day}.${month}.${year}  ${hour}:${min}`;
+};
+
+const addRemovingButtons = () => {
+  imageWrappers.forEach((wrapper) => {
+    const removeImgBtn = document.createElement("img");
+    removeImgBtn.src = "task-2/close.png";
+    removeImgBtn.classList = "remove-img";
+    console.log(wrapper);
+    if (wrapper.childElementCount < 2) wrapper.appendChild(removeImgBtn);
+  });
 };
 
 let date = dateHandler();
@@ -61,8 +161,8 @@ let modalImage;
 
 images.forEach((img) => {
   img.addEventListener("click", (e) => {
-    console.log("CLICKED");
     modal.classList.remove("hidden");
+    console.log(modal);
     modalImage = document.createElement("img");
     modalImage.src = e.target.src.slice(21);
     modal.appendChild(modalImage);
@@ -77,13 +177,6 @@ closeModalBtn.addEventListener("click", () => {
 ////////////////////////////////////////////////////////////////////
 // Bonus
 
-imageWrappers.forEach((wrapper) => {
-  const removeImgBtn = document.createElement("img");
-  removeImgBtn.src = "task-2/close.png";
-  removeImgBtn.classList = "remove-img";
-  wrapper.appendChild(removeImgBtn);
-});
-
 const removedWrappers = [];
 
 document.addEventListener("click", (e) => {
@@ -92,6 +185,33 @@ document.addEventListener("click", (e) => {
     if (wrapper) {
       wrapper.remove();
       localStorage.setItem("container", JSON.stringify(container.innerHTML));
+      removedWrappers.push(wrapper.outerHTML);
+      let appendedElement;
+      localStorage.setItem("removedWrappers", JSON.stringify(removedWrappers));
+      deletedContainer.innerHTML = "";
+      JSON.parse(localStorage.getItem("removedWrappers")).map((item) => {
+        appendedElement = document.createElement("div");
+        appendedElement.innerHTML = item;
+        deletedContainer.appendChild(appendedElement);
+        localStorage.setItem(
+          "deletedContainerHTML",
+          JSON.stringify(deletedContainer.innerHTML)
+        );
+      });
     }
   }
+});
+
+const restoreBtn = document.createElement("button");
+restoreBtn.textContent = "Восстановить";
+restoreBtn.classList.add("restore-btn");
+section.appendChild(restoreBtn);
+
+restoreBtn.addEventListener("click", () => {
+  localStorage.setItem("container", initialContainerHTML);
+  container.innerHTML = initialContainerHTML;
+  localStorage.removeItem("removedWrappers");
+  removedWrappers.length = 0;
+  localStorage.setItem("deletedContainerHTML", "");
+  deletedContainer.innerHTML = "";
 });
