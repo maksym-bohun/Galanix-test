@@ -33,13 +33,34 @@ main {
   color: #fff;
 }
 
-.cancel-btn {
+.reset-btn {
   background-color: #000;
   cursor: pointer;
   color: #fff;
 }
 
-.cancel-btn:hover {
+.reset-btn:hover {
   background-color: #fff;
   color: #000;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.table__numbers {
+  text-align: center;
+}
+
+.checkbox {
+  height: 1.2rem;
+  width: 1.2rem;
 }
