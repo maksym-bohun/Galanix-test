@@ -2,7 +2,9 @@ const input = document.querySelector(".input");
 const sendButton = document.querySelector(".send-btn");
 const resetButton = document.querySelector(".reset-btn");
 const tableContainer = document.querySelector(".table-container");
-const checkboxes = document.querySelectorAll(".checkbox");
+let checkboxes = document.querySelectorAll(".checkbox");
+const counter = document.querySelector(".counter");
+let currentCountry;
 
 const fetchData = async (country) => {
   try {
@@ -20,10 +22,14 @@ const fetchData = async (country) => {
   }
 };
 
+let checkboxesChecked = [];
+
 const createTable = async () => {
-  console.log("creating");
+  checkboxesChecked = [];
   tableContainer.innerHTML = "";
   if (input.value.trim().length > 0) {
+    currentCountry = input.value;
+    localStorage.setItem("currentCountry", currentCountry);
     const data = await fetchData(input.value);
     if (data === "empty") {
       const message = document.createElement("h2");
@@ -42,7 +48,6 @@ const createTable = async () => {
           <th>Website</th>
       </tr>`;
 
-    console.log(data);
     data.map((university, i) => {
       const tableRow = document.createElement("tr");
       const webPages = university.web_pages.map((page) => {
@@ -65,9 +70,23 @@ const createTable = async () => {
   } else return;
 };
 
+const updateCounter = () => {
+  if (localStorage.getItem(currentCountry)) {
+    checkboxes = document.querySelectorAll(".checkbox");
+    localStrgCheckboxes = JSON.parse(localStorage.getItem(currentCountry));
+    checkboxes.forEach((checkbox, i) => {
+      if (localStrgCheckboxes.includes(i + 1)) {
+        checkbox.checked = true;
+      }
+    });
+  }
+};
+
 sendButton.addEventListener("click", async (e) => {
   e.preventDefault();
   await createTable();
+  updateCounter();
+  checkboxes = document.querySelectorAll(".checkbox");
 });
 
 input.addEventListener("keydown", (e) => {
@@ -80,4 +99,32 @@ input.addEventListener("keydown", (e) => {
 resetButton.addEventListener("click", () => {
   tableContainer.innerHTML = "";
   input.value = "";
+  updateCounter();
+  counter.textContent = "";
+  localStorage.setItem("currentCountry", "");
+});
+
+tableContainer.addEventListener("change", () => {
+  checkboxes.forEach((checkbox, i) => {
+    if (checkbox.checked && !checkboxesChecked.includes(i + 1)) {
+      console.log(checkbox, i);
+      checkboxesChecked.push(i + 1);
+      localStorage.setItem(currentCountry, JSON.stringify(checkboxesChecked));
+    } else if (!checkbox.checked && checkboxesChecked.includes(i + 1)) {
+      checkboxesChecked.splice(checkboxesChecked.indexOf(i + 1), 1);
+      localStorage.setItem(currentCountry, JSON.stringify(checkboxesChecked));
+      console.log("//////////////////////////////////");
+      console.log(
+        checkboxesChecked.splice(checkboxesChecked.indexOf(i + 1), 1)
+      );
+      console.log("//////////////////////////////////");
+    }
+    console.log(checkboxesChecked);
+    console.log(i);
+  });
+  counter.textContent = JSON.parse(localStorage.getItem(currentCountry)).length;
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  updateCounter();
 });
