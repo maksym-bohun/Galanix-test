@@ -32,7 +32,7 @@ html {
   border: 5px solid red;
 }
 
-.image-container:hover {
+.image-wrapper > .image-container:hover {
   border: 5px solid yellow;
   transform: rotate(45deg);
 }

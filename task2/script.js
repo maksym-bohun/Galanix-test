@@ -12,33 +12,41 @@ const container = document.querySelector(".container");
 const modal = document.querySelector(".modal");
 const modalBackground = document.querySelector(".modal__background");
 const closeModalBtn = document.querySelector(".modal__close-btn");
-const imageWrappers = document.querySelectorAll(".image-wrapper");
+let imageWrappers = document.querySelectorAll(".image-wrapper");
+
+console.log(container.childElementCount);
+document.addEventListener("DOMContentLoaded", () => {
+  const containerInnerHtml = localStorage.getItem("container");
+  if (containerInnerHtml) container.innerHTML = JSON.parse(containerInnerHtml);
+});
 
 function updateImagesAmount() {
-  const images = document.querySelectorAll(".image");
-  return images.length;
+  return container.childElementCount;
 }
 
 const dateHandler = () => {
   const date = new Date();
-  let day = date.getDay();
-  let month = date.getMonth();
+  let day = date.getDate();
+  let month = date.getUTCMonth() + 1;
   const year = date.getFullYear();
-  const hour = date.getHours();
-  const min = date.getMinutes();
+  let hour = date.getHours();
+  let min = date.getMinutes();
+  //   console.log(date);
 
   if (+day < 10) day = "0" + day;
   if (+month < 10) month = "0" + month;
+  if (+hour < 10) hour = "0" + hour;
+  if (+min < 10) min = "0" + min;
 
   return `${day}.${month}.${year}  ${hour}:${min}`;
 };
 
 let date = dateHandler();
-const numDatesection = document.createElement("div");
-numDatesection.textContent = `${updateImagesAmount()} images. Date: ${date}`;
-numDatesection.classList = "date";
+const numDateSection = document.createElement("div");
+numDateSection.textContent = `${updateImagesAmount()} images. Date: ${date}`;
+numDateSection.classList = "date";
 const firstChild = section.firstChild;
-section.insertBefore(numDatesection, firstChild);
+section.insertBefore(numDateSection, firstChild);
 
 setInterval(() => {
   date = dateHandler();
@@ -66,6 +74,7 @@ closeModalBtn.addEventListener("click", () => {
   modal.classList.add("hidden");
 });
 
+////////////////////////////////////////////////////////////////////
 // Bonus
 
 imageWrappers.forEach((wrapper) => {
@@ -75,14 +84,14 @@ imageWrappers.forEach((wrapper) => {
   wrapper.appendChild(removeImgBtn);
 });
 
+const removedWrappers = [];
+
 document.addEventListener("click", (e) => {
-  console.log(e.target.className);
-  if (e.target.className == "remove-img") {
-    e.target.closest("div").classList.add("hidden");
-    imageWrappers.forEach((wrapper) => {
-      if (wrapper === e.target.closest("div")) {
-        wrapper.remove();
-      }
-    });
+  if (e.target.classList.contains("remove-img")) {
+    const wrapper = e.target.closest(".image-wrapper");
+    if (wrapper) {
+      wrapper.remove();
+      localStorage.setItem("container", JSON.stringify(container.innerHTML));
+    }
   }
 });
