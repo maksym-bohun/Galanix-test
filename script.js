@@ -24,13 +24,14 @@ const fetchData = async (country) => {
 
 let checkboxesChecked = [];
 
-const createTable = async () => {
+const createTable = async (country = input.value.trim()) => {
   checkboxesChecked = [];
+  //   updateCounter();
   tableContainer.innerHTML = "";
-  if (input.value.trim().length > 0) {
-    currentCountry = input.value;
+  if (country.length > 0) {
+    currentCountry = country;
     localStorage.setItem("currentCountry", currentCountry);
-    const data = await fetchData(input.value);
+    const data = await fetchData(country);
     if (data === "empty") {
       const message = document.createElement("h2");
       message.className = "heading-secondary";
@@ -71,22 +72,34 @@ const createTable = async () => {
 };
 
 const updateCounter = () => {
+  currentCountry = localStorage.getItem("currentCountry");
+  console.log(currentCountry);
+  console.log(localStorage.getItem(currentCountry));
   if (localStorage.getItem(currentCountry)) {
     checkboxes = document.querySelectorAll(".checkbox");
     localStrgCheckboxes = JSON.parse(localStorage.getItem(currentCountry));
+    console.log(checkboxes);
     checkboxes.forEach((checkbox, i) => {
+      console.log(localStrgCheckboxes);
       if (localStrgCheckboxes.includes(i + 1)) {
+        console.log("TRUE");
         checkbox.checked = true;
       }
     });
   }
+  counter.textContent = `Checked checkboxes in ${
+    currentCountry[0].toUpperCase() + currentCountry.slice(1)
+  }: ${
+    localStorage.getItem(currentCountry)
+      ? JSON.parse(localStorage.getItem(currentCountry)).length
+      : 0
+  } `;
 };
 
 sendButton.addEventListener("click", async (e) => {
   e.preventDefault();
   await createTable();
   updateCounter();
-  checkboxes = document.querySelectorAll(".checkbox");
 });
 
 input.addEventListener("keydown", (e) => {
@@ -105,26 +118,23 @@ resetButton.addEventListener("click", () => {
 });
 
 tableContainer.addEventListener("change", () => {
+  checkboxes = document.querySelectorAll(".checkbox");
+  checkboxesChecked = [];
+
   checkboxes.forEach((checkbox, i) => {
-    if (checkbox.checked && !checkboxesChecked.includes(i + 1)) {
-      console.log(checkbox, i);
+    if (checkbox.checked) {
       checkboxesChecked.push(i + 1);
-      localStorage.setItem(currentCountry, JSON.stringify(checkboxesChecked));
-    } else if (!checkbox.checked && checkboxesChecked.includes(i + 1)) {
-      checkboxesChecked.splice(checkboxesChecked.indexOf(i + 1), 1);
-      localStorage.setItem(currentCountry, JSON.stringify(checkboxesChecked));
-      console.log("//////////////////////////////////");
-      console.log(
-        checkboxesChecked.splice(checkboxesChecked.indexOf(i + 1), 1)
-      );
-      console.log("//////////////////////////////////");
     }
-    console.log(checkboxesChecked);
-    console.log(i);
   });
-  counter.textContent = JSON.parse(localStorage.getItem(currentCountry)).length;
+
+  localStorage.setItem(currentCountry, JSON.stringify(checkboxesChecked));
+  counter.textContent = `Checked checkboxes in ${
+    currentCountry[0].toUpperCase() + currentCountry.slice(1)
+  }: ${checkboxesChecked.length}`;
 });
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
+  input.value = localStorage.getItem("currentCountry");
+  await createTable(localStorage.getItem("currentCountry") || input.value);
   updateCounter();
 });
